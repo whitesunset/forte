@@ -21,6 +21,9 @@ var seed = [
 ];
 
 for (var i = 0; i < seed.length; i++){
-    //console.log(seed[i] + ' : ' + Number.decimal(seed[i]));
-    console.log(seed[i] + ' : ' + Number.percent(seed[i]));
+    console.log('Binary: ' + seed[i] + ' : ' + Number.binary(seed[i]));
+    //console.log('Octal: ' + seed[i] + ' : ' + Number.octal(seed[i]));
+    //console.log('Decimal: ' + seed[i] + ' : ' + Number.decimal(seed[i]));
+    //console.log('Hexadecimal: ' + seed[i] + ' : ' + Number.hex(seed[i]));
+    //console.log('Percent: ' + seed[i] + ' : ' + Number.percent(seed[i]));
 }
