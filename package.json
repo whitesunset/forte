@@ -1,0 +1,30 @@
+{
+  "name": "forte",
+  "version": "1.0.0",
+  "description": "Javascrit randomization library",
+  "main": "app.js",
+  "scripts": {
+    "test": "node node_modules/mocha/bin/_mocha --recursive --ui bdd tests"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "chai": "*",
+    "chai-string": "^1.1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whitesunset/forte.git"
+  },
+  "keywords": [
+    "random",
+    "node",
+    "js",
+    "gamedev"
+  ],
+  "author": "whitesunset",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/whitesunset/forte/issues"
+  },
+  "homepage": "https://github.com/whitesunset/forte#readme"
+}
