@@ -7,8 +7,8 @@ function Random() {
 
     // wrap errors
     self.error = function (message) {
-        this.message = message;
         this.name = 'ForteError';
+        this.message = message;
 
         this.toConsole = function () {
             console.log('[' + this.name + '] ' + this.message);
@@ -35,22 +35,6 @@ function Random() {
             return;
         }
         return self[input.type](input.values);
-    }
-
-    self.range = function (values) {
-        var result = false;
-        try {
-            if (!!values && typeof values == 'object' && values.length == 2) {
-                var min = values[0];
-                var max = values[1];
-                result = Math.floor(Math.random() * (max - min + 1) + min);
-            } else {
-                throw new self.error('Incorrect values array size');
-            }
-        } catch (e) {
-            e.toConsole();
-        }
-        return result;
     }
 
     self.array = function (values) {

@@ -1,129 +1,154 @@
-require('babel-core/register');
-var _ = require('underscore');
-var core = require('./core');
-var Core = new core();
+var core = require('./core'),
+    Core = new core;
 
 /** @class Number **/
-module.exports = function () {
-    var self = this;
-
-    /**
-     * Binary
-     * @memberof Number
-     * @alias binary
-     * @param {*} limit
-     * @returns {(number|boolean)}
-     */
-    self.binary = function (limit) {
-        var num = self.decimal(limit);
-        return num.toString(2);
-    }
-
-    /**
-     * Octal
-     * @memberof Number
-     * @alias octal
-     * @param {*} limit
-     * @returns {(number|boolean)}
-     */
-    self.octal = function (limit) {
-        var num = self.decimal(limit);
-        return num.toString(8);
-    }
-
-    /**
-     * Hexadecimal
-     * @memberof Number
-     * @alias hex
-     * @param {*} limit
-     * @returns {(number|boolean)}
-     */
-    self.hex = function (limit) {
-        var num = self.decimal(limit);
-        return num.toString(16);
-    }
-
-    /**
-     * Decimal
-     * @memberof Number
-     * @alias decimal
-     * @param {*} limit
-     * @returns {(number|boolean)}
-     */
-    self.decimal = function (limit) {
-        var result = false;
-        try {
-            var min, max;
-            if (typeof limit === 'number' ||
-                typeof limit == 'string' ||
-                (!!limit && typeof limit == 'object' && limit.length === 1)
-            ) {
-                min = 0;
-                max = limit;
-            }
-            if (!!limit && typeof limit == 'object' && limit.length === 2) {
-                min = +limit[0];
-                max = limit[1];
-            }
-            if (!limit) {
-                throw new Core.error('Empty param, null or undefined: (' + limit + ')');
-            } else if (!!limit && typeof limit == 'object' && (limit.length > 2 || limit.length === 0)) {
-                throw new Core.error('Wrong limit length: (' + limit.length + ')');
-            } else {
-                result = Core.range([min, max]);
-            }
-        } catch (e) {
-            e.toConsole();
-        }
-        return result;
-    }
-
-    /**
-     * Alias for decimal
-     * @memberof Number
-     * @alias integer
-     * @param {*} limit
-     * @returns {(number|boolean)}
-     */
-    self.integer = function (limit) {
-        return self.decimal(limit);
-    }
-
-    /**
-     * Float
-     * @memberof Number
-     * @alias float
-     * @param {*} limit
-     * @returns {(number|boolean)}
-     */
-    self.float = function (limit) {
-        return false;
-    }
-
-    /**
-     * Percent
-     * @memberof Number
-     * @alias percent
-     * @param {(string|number|Array)} limit Array[min, max], min = 0 by default
-     * @param {string} sign adds to end of string
-     * @returns {string|boolean} percent
-     */
-    self.percent = function (limit, sign) {
-        sign = sign ? '' + sign : '';
-        if (!limit || (typeof limit === 'object' && limit.length === 0)) {
-            return Core.range([0, 100]) + sign;
-        } else {
-            return self.decimal(limit) + sign;
-        }
-    }
-
-    // TODO move to strings
-    /**
-     * Mixed
-     */
-    self.version = function () {
-
-    }
-
-    return self;
+var Number = function () {
+    this.result;
 }
+
+module.exports = Number;
+
+/**
+ * Get random number within range
+ * @memberof Number
+ * @alias range
+ * @param {*} limit
+ * @param {boolean} int
+ * @returns {(number|boolean)}
+ */
+Number.prototype.range = function (limit, int) {
+    this.result = false;
+    var min = 0,
+        max = 0;
+    try {
+        var min, max;
+        if (typeof limit === 'number' ||
+            typeof limit == 'string' ||
+            (!!limit && typeof limit == 'object' && limit.length === 1 && +limit !== 0)
+        ) {
+            min = 0;
+            max = +limit;
+        }
+        if (!!limit && typeof limit == 'object' && limit.length === 2) {
+            min = +limit[0];
+            max = +limit[1];
+        }
+        if (!limit) {
+            throw new Core.error('Empty param, null or undefined: (' + limit + ')');
+        } else if (!!limit && typeof limit == 'object' && (limit.length > 2 || limit.length === 0)) {
+            throw new Core.error('Wrong limit length: (' + limit.length + ')');
+        } else {
+            if (int) {
+                this.result = Math.floor(Math.random() * (max - min + 1) + min);
+            }else{
+                this.result = Math.random() * (max - min) + min;
+            }
+        }
+    } catch (e) {
+        e.toConsole();
+    }
+    return this.result;
+}
+
+/**
+ * Binary
+ * @memberof Number
+ * @alias binary
+ * @param {*} limit
+ * @returns {(number|boolean)}
+ */
+Number.prototype.binary = function (limit) {
+    this.result = this.decimal(limit).toString(2);
+    return this.result;
+}
+
+/**
+ * Octal
+ * @memberof Number
+ * @alias octal
+ * @param {*} limit
+ * @returns {(number|boolean)}
+ */
+Number.prototype.octal = function (limit) {
+    this.result = this.decimal(limit).toString(8);
+    return this.result;
+}
+
+/**
+ * Hexadecimal
+ * @memberof Number
+ * @alias hex
+ * @param {*} limit
+ * @returns {(number|boolean)}
+ */
+Number.prototype.hex = function (limit) {
+    this.result = this.decimal(limit).toString(16);
+    return this.result;
+}
+
+/**
+ * Decimal
+ * @memberof Number
+ * @alias decimal
+ * @param {*} limit
+ * @returns {(number|boolean)}
+ */
+Number.prototype.decimal = function (limit) {
+    this.result = this.range(limit, true);
+    return this.result;
+}
+
+/**
+ * Alias for decimal
+ * @memberof Number
+ * @alias integer
+ * @param {*} limit
+ * @returns {(number|boolean)}
+ */
+Number.prototype.integer = function (limit) {
+    this.result = this.decimal(limit);
+    return this.result;
+}
+
+/**
+ * Float
+ * @memberof Number
+ * @alias float
+ * @param {*} limit
+ * @returns {(number|boolean)}
+ */
+Number.prototype.float = function (limit, precision) {
+    precision = precision === undefined ? 2 : precision;
+    this.result = this.range(limit, false);
+    if(this.result){
+        this.result = this.result.toFixed(precision);
+    }
+    return this.result;
+}
+
+/**
+ * Percent
+ * @memberof Number
+ * @alias percent
+ * @param {(string|number|Array)} limit Array[min, max], min = 0 by default
+ * @param {string} sign adds to end of string
+ * @returns {string|boolean} percent
+ */
+Number.prototype.percent = function (limit, sign) {
+    sign = sign ? '' + sign : '';
+    if (!limit || (typeof limit === 'object' && limit.length === 0)) {
+        this.result = this.range([0, 100]) + sign;
+    } else {
+        this.result = this.decimal(limit) + sign;
+    }
+    return this.result;
+}
+
+/* // TODO move to strings
+ /!**
+ * Mixed
+ *!/
+ this.version = function () {
+
+ }
+ */
