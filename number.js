@@ -118,7 +118,7 @@ Number.prototype.integer = function (limit) {
  * @returns {(number|boolean)}
  */
 Number.prototype.float = function (limit, precision) {
-    precision = precision === undefined ? 2 : precision;
+    precision = precision || 2;
     this.result = this.range(limit, false);
     if(this.result){
         this.result = this.result.toFixed(precision);
