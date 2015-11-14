@@ -1,12 +1,12 @@
-var core = require('./core'),
-    Core = new core;
+var core = require('./core');
+//var Core = new core();
 
 /** @class Number **/
-var Number = function () {
+var RandomNumber = function () {
     this.result;
 }
 
-module.exports = Number;
+module.exports = RandomNumber;
 
 /**
  * Get random number within range
@@ -16,7 +16,7 @@ module.exports = Number;
  * @param {boolean} int
  * @returns {(number|boolean)}
  */
-Number.prototype.range = function (limit, int) {
+RandomNumber.prototype.range = function (limit, int) {
     this.result = false;
     var min = 0,
         max = 0;
@@ -40,7 +40,7 @@ Number.prototype.range = function (limit, int) {
         } else {
             if (int) {
                 this.result = Math.floor(Math.random() * (max - min + 1) + min);
-            }else{
+            } else {
                 this.result = Math.random() * (max - min) + min;
             }
         }
@@ -57,7 +57,7 @@ Number.prototype.range = function (limit, int) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-Number.prototype.binary = function (limit) {
+RandomNumber.prototype.binary = function (limit) {
     this.result = this.decimal(limit).toString(2);
     return this.result;
 }
@@ -69,7 +69,7 @@ Number.prototype.binary = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-Number.prototype.octal = function (limit) {
+RandomNumber.prototype.octal = function (limit) {
     this.result = this.decimal(limit).toString(8);
     return this.result;
 }
@@ -81,7 +81,7 @@ Number.prototype.octal = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-Number.prototype.hex = function (limit) {
+RandomNumber.prototype.hex = function (limit) {
     this.result = this.decimal(limit).toString(16);
     return this.result;
 }
@@ -93,7 +93,7 @@ Number.prototype.hex = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-Number.prototype.decimal = function (limit) {
+RandomNumber.prototype.decimal = function (limit) {
     this.result = this.range(limit, true);
     return this.result;
 }
@@ -105,7 +105,7 @@ Number.prototype.decimal = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-Number.prototype.integer = function (limit) {
+RandomNumber.prototype.integer = function (limit) {
     this.result = this.decimal(limit);
     return this.result;
 }
@@ -117,10 +117,10 @@ Number.prototype.integer = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-Number.prototype.float = function (limit, precision) {
+RandomNumber.prototype.float = function (limit, precision) {
     precision = precision || 2;
     this.result = this.range(limit, false);
-    if(this.result){
+    if (this.result) {
         this.result = this.result.toFixed(precision);
     }
     return this.result;
@@ -134,7 +134,7 @@ Number.prototype.float = function (limit, precision) {
  * @param {string} sign adds to end of string
  * @returns {string|boolean} percent
  */
-Number.prototype.percent = function (limit, sign) {
+RandomNumber.prototype.percent = function (limit, sign) {
     sign = sign ? '' + sign : '';
     if (!limit || (typeof limit === 'object' && limit.length === 0)) {
         this.result = this.range([0, 100]) + sign;
@@ -144,11 +144,7 @@ Number.prototype.percent = function (limit, sign) {
     return this.result;
 }
 
-/* // TODO move to strings
- /!**
- * Mixed
- *!/
- this.version = function () {
-
- }
+// TODO move to String submodule
+/*
+String.prototype.version = function () {}
  */
