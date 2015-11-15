@@ -1,5 +1,5 @@
-var number = require('./number');
-var Number = new number;
+var forte = require('./core');
+var Forte = new forte();
 var console = require('mag')('Number');
 
 var seed = [
@@ -27,5 +27,5 @@ for (var i = 0; i < seed.length; i++){
     //console.log('Decimal: ' + seed[i] + ' type: ' + typeof seed[i] + ' : ' + Number.decimal(seed[i]));
     //console.log('Hexadecimal: ' + seed[i] + ' : ' + Number.hex(seed[i]));
     //console.log('Percent: ' + seed[i] + ' : ' + Number.percent(seed[i]));
-    console.log('Float: ' + seed[i] + ' type: ' + typeof seed[i] + ' : ' + Number.float(seed[i], 1));
+    console.log('Float: ' + seed[i] + ' type: ' + typeof seed[i] + ' : ' + Forte.number.float(seed[i], 1));
 }

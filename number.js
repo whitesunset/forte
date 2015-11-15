@@ -1,12 +1,12 @@
-var core = require('./core');
-//var Core = new core();
-
-/** @class Number **/
-var RandomNumber = function () {
-    this.result;
+/** @class ForteNumber **/
+var ForteNumber = function () {
+    this.result = false;
 }
 
-module.exports = RandomNumber;
+module.exports = ForteNumber;
+
+var forte = require('./core');
+var Forte = new forte();
 
 /**
  * Get random number within range
@@ -16,7 +16,7 @@ module.exports = RandomNumber;
  * @param {boolean} int
  * @returns {(number|boolean)}
  */
-RandomNumber.prototype.range = function (limit, int) {
+ForteNumber.prototype.range = function (limit, int) {
     this.result = false;
     var min = 0,
         max = 0;
@@ -34,9 +34,9 @@ RandomNumber.prototype.range = function (limit, int) {
             max = +limit[1];
         }
         if (!limit) {
-            throw new Core.error('Empty param, null or undefined: (' + limit + ')');
+            throw new Forte.error('Empty param, null or undefined: (' + limit + ')');
         } else if (!!limit && typeof limit == 'object' && (limit.length > 2 || limit.length === 0)) {
-            throw new Core.error('Wrong limit length: (' + limit.length + ')');
+            throw new Forte.error('Wrong limit length: (' + limit.length + ')');
         } else {
             if (int) {
                 this.result = Math.floor(Math.random() * (max - min + 1) + min);
@@ -57,7 +57,7 @@ RandomNumber.prototype.range = function (limit, int) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-RandomNumber.prototype.binary = function (limit) {
+ForteNumber.prototype.binary = function (limit) {
     this.result = this.decimal(limit).toString(2);
     return this.result;
 }
@@ -69,7 +69,7 @@ RandomNumber.prototype.binary = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-RandomNumber.prototype.octal = function (limit) {
+ForteNumber.prototype.octal = function (limit) {
     this.result = this.decimal(limit).toString(8);
     return this.result;
 }
@@ -81,7 +81,7 @@ RandomNumber.prototype.octal = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-RandomNumber.prototype.hex = function (limit) {
+ForteNumber.prototype.hex = function (limit) {
     this.result = this.decimal(limit).toString(16);
     return this.result;
 }
@@ -93,7 +93,7 @@ RandomNumber.prototype.hex = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-RandomNumber.prototype.decimal = function (limit) {
+ForteNumber.prototype.decimal = function (limit) {
     this.result = this.range(limit, true);
     return this.result;
 }
@@ -105,7 +105,7 @@ RandomNumber.prototype.decimal = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-RandomNumber.prototype.integer = function (limit) {
+ForteNumber.prototype.integer = function (limit) {
     this.result = this.decimal(limit);
     return this.result;
 }
@@ -117,7 +117,7 @@ RandomNumber.prototype.integer = function (limit) {
  * @param {*} limit
  * @returns {(number|boolean)}
  */
-RandomNumber.prototype.float = function (limit, precision) {
+ForteNumber.prototype.float = function (limit, precision) {
     precision = precision || 2;
     this.result = this.range(limit, false);
     if (this.result) {
@@ -134,7 +134,7 @@ RandomNumber.prototype.float = function (limit, precision) {
  * @param {string} sign adds to end of string
  * @returns {string|boolean} percent
  */
-RandomNumber.prototype.percent = function (limit, sign) {
+ForteNumber.prototype.percent = function (limit, sign) {
     sign = sign ? '' + sign : '';
     if (!limit || (typeof limit === 'object' && limit.length === 0)) {
         this.result = this.range([0, 100]) + sign;

@@ -1,19 +1,21 @@
-var random_array = require('./array');
-var random_number = require('./number');
-var RandomArray = new random_array;
-var RandomNumber = new random_number;
-
-var Random = function () {
-    this.module;
+/** @class Forte */
+function Forte () {
+    this.number = number;
+    this.array = array;
 }
 
-module.exports = Random;
+module.exports = Forte;
+
+var Array = require('./array');
+var Number = require('./number');
+var array = new Array(Forte);
+var number = new Number(Forte);
 
 /**
  * Error wrapper — throw error to console
  * @param message
  */
-Random.prototype.error = function (message) {
+Forte.prototype.error = function (message) {
     this.name = 'ForteError';
     this.message = message;
 
@@ -27,7 +29,7 @@ Random.prototype.error = function (message) {
  * @param input
  * @returns {*}
  */
-Random.prototype.key = function (input) {
+Forte.prototype.key = function (input) {
     return _.shuffle(_.keys(input))[0];
 }
 
@@ -36,7 +38,7 @@ Random.prototype.key = function (input) {
  * @param input
  * @returns {{}}
  */
-Random.prototype.parse = function (input) {
+Forte.prototype.parse = function (input) {
     var result = {}
     _.each(input, function (value, key) {
         result[key] = self.make(value);
@@ -49,7 +51,7 @@ Random.prototype.parse = function (input) {
  * @param input
  * @returns {*}
  */
-Random.prototype.roll = function (input) {
+Forte.prototype.roll = function (input) {
     var submodule = input.type.substr(0, input.type.indexOf('/')),
         method = input.type.substr(input.type.indexOf('/')+1);
     if (typeof this[submodule][method] !== 'function') {
@@ -58,5 +60,3 @@ Random.prototype.roll = function (input) {
     }
     return this[submodule][method](input.values);
 }
-Random.prototype.array = RandomArray;
-Random.prototype.number = RandomNumber;

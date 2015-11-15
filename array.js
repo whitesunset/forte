@@ -1,14 +1,14 @@
-var core = require('./core');
-//var Core = new core();
-
 /** @class Array **/
-var RandomArray = function () {
-    this.result;
+var ForteArray = function () {
+    this.result = false;
 }
 
-module.exports = RandomArray;
+module.exports = ForteArray;
 
-RandomArray.prototype.item = function (values) {
+var forte = require('./core');
+var Forte = new forte();
+
+ForteArray.prototype.item = function (values) {
     if(values instanceof Array){
         this.result = values[Math.floor(Math.random() * values.length)];
     }else{
