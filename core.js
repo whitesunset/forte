@@ -1,14 +1,17 @@
 /** @class Forte */
 function Forte () {
-    this.number = number;
     this.array = array;
+    this.object = object;
+    this.number = number;
 }
 
 module.exports = Forte;
 
 var Array = require('./array');
+var Object = require('./object');
 var Number = require('./number');
 var array = new Array(Forte);
+var object = new Object(Forte);
 var number = new Number(Forte);
 
 /**
