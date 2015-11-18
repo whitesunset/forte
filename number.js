@@ -1,5 +1,5 @@
 /** @class ForteNumber **/
-var ForteNumber = function () {
+var ForteNumber = function (core) {
     this.result = false;
 }
 
