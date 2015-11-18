@@ -3,6 +3,7 @@ function Forte () {
     this.array = array;
     this.object = object;
     this.number = number;
+    this.color = color;
 }
 
 module.exports = Forte;
@@ -10,9 +11,11 @@ module.exports = Forte;
 var Array = require('./array');
 var Object = require('./object');
 var Number = require('./number');
+var Color = require('./color');
 var array = new Array(Forte);
 var object = new Object(Forte);
 var number = new Number(Forte);
+var color = new Color(Forte);
 
 /**
  * Error wrapper — throw error to console
