@@ -8,13 +8,11 @@ module.exports = ForteArray;
 var forte = require('./core');
 var Forte = new forte();
 
-ForteArray.prototype.item = function (values) {
-    if(values instanceof Array){
-        this.result = values[Math.floor(Math.random() * values.length)];
-    }else{
-        var keys = Object.keys(values);
-        var key = keys[Math.floor(Math.random() * keys.length)];
-        this.result = this.item(values[key]);
+ForteArray.prototype.item = function (values, recursive) {
+    recursive = recursive || false;
+    var result = values[Math.floor(Math.random() * values.length)];
+    if(result instanceof Array && recursive){
+        result = this.item(result);
     }
-    return this.result;
+    return result;
 }
