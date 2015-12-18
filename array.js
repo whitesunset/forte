@@ -21,6 +21,7 @@ ForteArray.prototype.index = function (values, recursive) {
     recursive = recursive || false;
     var index = Math.floor(Math.random() * values.length),
         result = [];
+    result.push(index);
     if(values[index] instanceof Array && recursive){
         result.push(this.index(values[index], recursive));
     }
